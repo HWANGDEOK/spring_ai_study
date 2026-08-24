@@ -1,0 +1,9 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: back-end
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY}
