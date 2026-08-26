@@ -1,18 +1,20 @@
 package com.hyeondeok.back_end.service;
 
-import org.springframework.ai.chat.model.ChatModel;
+import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ChatService {
-    private final ChatModel chatModel;
-
-    public ChatService(ChatModel chatModel) {
-        this.chatModel = chatModel;
+    // AiConfig가 @Bean 으로 등록한 ChatClient 빈을 직접 주입
+    private final ChatClient chatClient;
+    public ChatService(ChatClient chatClient) {
+        this.chatClient = chatClient;
     }
 
     public String getChatResponse(String query) {
-        String response = chatModel.call(query);
-        return response;
+        return chatClient.prompt()
+                .user(query)
+                .call()
+                .content();
     }
 }
