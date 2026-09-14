@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
 
 import java.util.List;
 
@@ -75,5 +76,14 @@ public class ChatController {
 
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/chat/stream")
+    public ResponseEntity<Flux<String>> streamChat(@RequestParam String query) {
+
+        Flux<String> response = chatService.streamChat(query);
+
+        return ResponseEntity.ok(response);
+    }
+
 
 }

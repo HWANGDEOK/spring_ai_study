@@ -16,6 +16,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
+import reactor.core.publisher.Flux;
 
 import java.util.List;
 import java.util.Map;
@@ -206,6 +207,17 @@ public class ChatService {
                         .param("concept", concept)
                 )
                 .call()
+                .content();
+    }
+
+    // 외부 파일로 프롬프트 관리 (Stream)
+    public Flux<String> streamChat(String concept) {
+        return openAiClient.prompt()
+                .system(systemMessageResource)
+                .user(u -> u.text(userMessageResource)
+                        .param("concept", concept)
+                )
+                .stream()
                 .content();
     }
 }
