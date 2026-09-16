@@ -2,6 +2,7 @@ package com.hyeondeok.back_end.service;
 
 import com.hyeondeok.back_end.entity.Tutorial;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.messages.Message;
 import org.springframework.ai.chat.metadata.ChatResponseMetadata;
 import org.springframework.ai.chat.model.ChatResponse;
@@ -47,6 +48,16 @@ public class ChatService {
 //    public ChatService(ChatClient chatClient) {
 //        this.chatClient = chatClient;
 //    }
+
+    public String chat(String query, String userId) {
+        return openAiClient.prompt()
+                .user(query)
+                .advisors(advisorSpec ->
+                        advisorSpec.param(ChatMemory.CONVERSATION_ID, userId)) // 메모리 기능
+                .call()
+                .content();
+    }
+
 
     public String getOpenAiResponse(String query) {
         return openAiClient.prompt()

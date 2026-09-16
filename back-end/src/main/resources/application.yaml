@@ -4,13 +4,15 @@ server:
 spring:
   application:
     name: back-end
+  config:
+    import: classpath:application-secret.yaml
   ai:
     openai:
       api-key: ${OPENAI_API_KEY}
       chat:
         model: gpt-4o-mini
         temperature: 1.0
-        max-tokens: 400
+        max-completion-tokens: 400
 
     ollama:
       base-url: http://localhost:11434
