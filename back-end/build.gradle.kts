@@ -27,7 +27,10 @@ dependencies {
 	implementation("org.springframework.ai:spring-ai-starter-model-chat-memory-repository-jdbc:2.0.1")
 	// MySQL 연결을 위한 JDBC 드라이버
 	runtimeOnly("com.mysql:mysql-connector-j:26.7.0")
-
+	// MariaDB driver
+	runtimeOnly("org.mariadb.jdbc:mariadb-java-client:3.5.10")
+	// MariaDB 벡터 스토어 전용 스타터
+	implementation("org.springframework.ai:spring-ai-starter-vector-store-mariadb:2.0.1")
 
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
